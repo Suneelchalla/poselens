@@ -4,26 +4,26 @@
 <meta name="color-scheme" content="light dark">
 <title>PoseLens – On-Set Photography Director</title>
 <link rel="manifest" href="./manifest.json">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff8a3d'/%3E%3Cstop offset='1' stop-color='%23d6336c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Ctext x='50' y='70' font-size='58' text-anchor='middle'%3E📸%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23e8590c'/%3E%3Ctext x='50' y='70' font-size='58' text-anchor='middle'%3E📸%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <meta name="theme-color" id="metaTheme" content="#f2f0ed">
 <meta name="apple-mobile-web-app-title" content="PoseLens">
-<meta name="mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
 :root{
-  --bg:#f2f0ed;--cd:#fff;--tx:#14151a;--mu:#6c707c;--bd:#e4e0da;
-  --ac:#e8590c;--ac2:#d6336c;--gl:rgba(255,255,255,.82);
+  --bg:#f2f0ed;--cd:#fff;--tx:#14151a;--mu:#595d69;--bd:#e4e0da;
+  --ac:#c2410c;--ac2:#be185d;--on:#fff;--gl:rgba(255,255,255,.82);
   padding-top:env(safe-area-inset-top,0px);
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --bg:#08090c;--cd:#13151b;--tx:#f4f4f6;--mu:#979bab;--bd:#242732;
-    --ac:#ff8a3d;--ac2:#ff4f8b;--gl:rgba(19,21,27,.82);
+    --ac:#ff8a3d;--ac2:#ff4f8b;--on:#1b1206;--gl:rgba(19,21,27,.82);
   }
 }
 :root[data-theme="dark"]{
   --bg:#08090c;--cd:#13151b;--tx:#f4f4f6;--mu:#979bab;--bd:#242732;
-  --ac:#ff8a3d;--ac2:#ff4f8b;--gl:rgba(19,21,27,.82);
+  --ac:#ff8a3d;--ac2:#ff4f8b;--on:#1b1206;--gl:rgba(19,21,27,.82);
 }
 html{background:var(--bg);scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -51,7 +51,7 @@ h2{font-size:21px;margin:12px 0 6px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .cc-wrap{position:relative;display:flex;flex-direction:column;border-radius:20px;transition:opacity .15s,transform .15s}
 .cc-wrap.dragging{opacity:.45;transform:scale(.96)}
-.cc{background:linear-gradient(150deg,var(--c),color-mix(in srgb,var(--c) 45%,#000));color:#fff;border-radius:20px;padding:14px 12px 40px;display:flex;flex-direction:column;gap:3px;min-height:120px;position:relative;overflow:hidden;box-shadow:0 10px 22px -12px var(--c);transition:transform .2s}
+.cc{background:linear-gradient(150deg,color-mix(in srgb,var(--c) 62%,#000),color-mix(in srgb,var(--c) 30%,#000));color:#fff;text-shadow:0 1px 3px #0006;border-radius:20px;padding:14px 12px 40px;display:flex;flex-direction:column;gap:3px;min-height:120px;position:relative;overflow:hidden;box-shadow:0 10px 22px -12px var(--c);transition:transform .2s}
 .cc .em{font-size:32px;filter:drop-shadow(0 2px 6px #0006)}
 .cc small{color:#ffffffd9}
 .cc::after{content:'';position:absolute;right:-26px;top:-26px;width:96px;height:96px;border-radius:50%;background:#ffffff26}
@@ -65,7 +65,7 @@ h2{font-size:21px;margin:12px 0 6px}
 .row{display:flex;gap:12px;align-items:center;background:var(--cd);border:1px solid var(--bd);border-radius:18px;padding:13px 14px;margin-bottom:10px;box-shadow:0 8px 24px -16px #000a}
 .row .em{font-size:28px}.row div{flex:1;min-width:0}.row b{display:block}.row small{color:var(--mu)}
 .chk{width:28px;height:28px;border-radius:9px;border:2px solid var(--bd);background:transparent;flex:none;display:grid;place-items:center;font-size:14px;color:transparent;cursor:pointer}
-.chk.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.chk.on{background:var(--ac);border-color:var(--ac);color:var(--on)}
 .card{background:var(--cd);border:1px solid var(--bd);border-radius:18px;padding:14px;margin:10px 0;box-shadow:0 8px 24px -16px #000a}
 .prompt-box{background:color-mix(in srgb,var(--ac) 12%,var(--cd));border:1px solid color-mix(in srgb,var(--ac) 40%,var(--bd));border-radius:18px;padding:14px;margin:10px 0}
 .prompt-box q{display:block;font-size:16px;font-weight:700;margin-top:4px;quotes:"“" "”"}
@@ -80,19 +80,21 @@ h2{font-size:21px;margin:12px 0 6px}
 .st{background:var(--cd);border:1px solid var(--bd);border-radius:18px;padding:10px 12px;box-shadow:0 8px 24px -16px #000a}
 .st small{color:var(--mu);display:block;font-size:12px}.st b{font-size:22px;letter-spacing:-.5px}
 dl{margin:0}dt{color:var(--mu);font-size:12px;text-transform:uppercase;letter-spacing:.4px;margin-top:10px}dd{margin:1px 0 0}
-.btn{display:block;width:100%;background:linear-gradient(90deg,var(--ac),var(--ac2));color:#fff;border:0;border-radius:16px;padding:13px;font:600 15px inherit;margin:8px 0;cursor:pointer;box-shadow:0 10px 22px -12px var(--ac2)}
+.btn{display:block;width:100%;background:linear-gradient(90deg,var(--ac),var(--ac2));color:var(--on);border:0;border-radius:16px;padding:13px;font:600 15px inherit;margin:8px 0;cursor:pointer;box-shadow:0 10px 22px -12px var(--ac2)}
 .btn.sec{background:var(--cd);color:var(--tx);border:1px solid var(--bd);box-shadow:none}
 .nav{display:flex;justify-content:space-between;gap:10px;margin-top:12px}
 .nav a,.nav button{flex:1;text-align:center;background:var(--cd);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:11px;font:600 14px inherit;cursor:pointer}
 .pill-row{display:flex;gap:7px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px;scrollbar-width:none}
 .pill-row::-webkit-scrollbar{display:none}
 .pill{border:1px solid var(--bd);background:var(--cd);color:var(--tx);border-radius:999px;padding:6px 12px;font:600 12.5px inherit;white-space:nowrap;cursor:pointer}
-.pill.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.pill.on{background:var(--ac);border-color:var(--ac);color:var(--on)}
 .pill.sub-on{background:color-mix(in srgb,var(--ac) 16%,var(--cd));border-color:var(--ac);color:var(--ac)}
 #tb{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(100%,640px);display:flex;justify-content:space-around;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));background:var(--gl);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--bd);z-index:5}
 #tb a{display:flex;flex-direction:column;align-items:center;font-size:11px;color:var(--mu);gap:2px;padding:4px 18px;font-weight:600}
 #tb a b{font-size:20px}#tb a.on{color:var(--ac)}
+.ref-row{display:flex;gap:8px;margin-top:6px}.ref-row a{flex:1;margin:0;padding:12px 6px;font-size:14px;text-align:center}
 .gfab{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:12px;z-index:6;background:var(--gl);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--bd);border-radius:20px;padding:7px 13px;font-size:13px;font-weight:700;color:var(--ac);cursor:pointer}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}.sb:focus-visible{border-color:var(--ac);outline:2px solid var(--ac)}
 </style></head><body><div id="app"></div><nav id="tb"></nav>
 <script>
 const STOPS=[1.4,1.8,2,2.8,3.5,4,5.6,8],SH=[60,125,200,320,500,800,1250,2000];
@@ -117,7 +119,7 @@ const CATS=[
 {n:"Candid Couple",e:"💑",col:"#ec4899",l:[35,50,85,105],a:3,s:1,n2:"Give prompts, not poses: walking, whispering, laughing.",p:"Stay back with a longer lens so they forget the camera."},
 {n:"Silhouette",e:"🌅",col:"#f97316",k:"si",l:[24,35,50,85],a:4,s:0,x:"Meter on the bright sky and dial −1 to −2 EV so the subject drops to a clean black shape. Keep poses open with clear gaps between limbs.",n2:"Pose in profile with clear gaps between limbs and body.",p:"Place the subject directly in front of the sun at sunrise or sunset."},
 {n:"Beach Photography",e:"🏖️",col:"#06b6d4",k:"bc",l:[24,35,50,85],a:3,s:1,x:"Expose +0.7 to +1 EV against bright sand and water, use a polarizer and keep gear sealed from sand and spray.",n2:"Use wet-sand reflections and wave lines as leading lines.",p:"Shoot in the first and last hour to avoid harsh, flat midday glare."},
-{n:"Baby & Child",e:"👶",col:"#e879a8",k:"bb",tl:['Baby & child solo','Parent & child','Family & child'],te:['👶','🤱','👨‍👩‍👧'],l:[35,50,85,105],a:1,s:1,x:"Use soft window or open-shade light, keep the shutter at 1/250 s or faster for wiggly babies and kids, and never use direct flash close to a newborn.",n2:"Keep the room warm and shoot in short sessions around feeding and nap times.",p:"Use AF-C with eye detection and shoot in bursts for fleeting expressions."}];
+{n:"Baby & Child",e:"👶",col:"#e879a8",k:"bb",tl:['Baby & child solo','Parent & child','Family & child'],l:[35,50,85,105],a:1,s:1,x:"Use soft window or open-shade light, keep the shutter at 1/250 s or faster for wiggly babies and kids, and never use direct flash close to a newborn.",n2:"Keep the room warm and shoot in short sessions around feeding and nap times.",p:"Use AF-C with eye detection and shoot in bursts for fleeting expressions."}];
 
 const D=[0,0,-8,-4,8,4,-5,-2,5,2],mk=(a,b)=>D.map((v,i)=>b&&b[i]!==undefined?b[i]:v);
 const SOLOS=[
@@ -158,7 +160,7 @@ const COUPLES=[
 ["Candid Laugh Lean-Back",2,0,"Eye level","Hold forearms, lean back and laugh at a joke; burst shoot.",[-8,-14,45,55,-8,-4,-5,-2,5,2],[8,14,8,4,-45,-55,-5,-2,5,2],76],
 ["Walking Away Embrace",0,1,"Behind, low angle","Walk away arm around waist and look back or at each other.",[0,6,-8,-4,70,70,-24,-10,18,35],[0,-6,-70,-70,8,4,-18,-35,24,10],56]];
 
-const FR=["Full body","Three-quarter body","Half body","Close-up"],TY=["Individual portrait","Couple portrait","Group portrait"];
+const FR=["Full body","Three-quarter body","Half body","Close-up"];
 const cl=(v,a,b)=>Math.max(a,Math.min(b,v));
 function gen(c,s,t,i){const C=CATS[c],S=SET[s],cp=t>0,d=LS(c,t)[i],f=d[1],mo=d[2];
 let fo=C.l[cp?Math.max(0,f-1):f],a=C.a+[1,0,-1][s];if(cp)a=Math.max(a+1,t==2?5:3);a=cl(a+(f==0?1:f==3?-1:0),0,7);
@@ -188,7 +190,7 @@ function LS(c,t){
 function getDirectorPrompt(p){
   const n=p.name.toLowerCase();
   if(/whisper/.test(n)) return '“Whisper the funniest memory you have of us—right now, without laughing.”';
-  if(/walk|stroll|steps/.test(n)) return '“Walk toward me in slow motion, bump shoulders gently, and look at each other—not the camera.”';
+  if(/\bwalk|stroll|first steps/.test(n)) return '“Walk toward me in slow motion, bump shoulders gently, and look at each other—not the camera.”';
   if(/run|sprint|chase/.test(n)) return '“Race each other toward me on three—whoever loses buys coffee!”';
   if(/jump|toss|cheer/.test(n)) return '“Big breath in—on three, explode up and shout your loudest cheer!”';
   if(/kiss|forehead|nose/.test(n)) return '“Close your eyes, take one slow breath together, and hold that quiet second.”';
@@ -196,7 +198,8 @@ function getDirectorPrompt(p){
   if(/dance|twirl/.test(n)) return '“Spin slowly like there’s music playing—let your chin follow your shoulder.”';
   if(/peek/.test(n)) return '“Where did baby go? Count one, two… BOO!”';
   if(/bump/.test(n)) return '“Look down at the bump and tell the baby one thing you can’t wait to show them.”';
-  if(/glance|shoulder/.test(n)) return '“Turn away from me, relax your shoulders, then look back like I just called your name.”';
+  if(/crawl/.test(n)) return '“Call baby from the side, then let them crawl to you—shoot the second they look up.”';
+  if(/glance|over-the-shoulder/.test(n)) return '“Turn away from me, relax your shoulders, then look back like I just called your name.”';
   if(/sit|bench|floor|blanket|cuddle/.test(n)) return '“Lean your weight into each other like you’ve been sitting here for an hour.”';
   return '“Drop your shoulders on an exhale, soften your jaw, and look just past my lens.”';
 }
@@ -208,16 +211,16 @@ function getSubgroup(p){
     if(/lying|curl|basket|sleepy|feet/.test(n)) return 'Newborn & Infant';
     return 'Sitting & Crawling';
   }
-  if(p.mo===1||/walk|run|jump|twirl|sprint|crawl|toss|steps|dance|cheer|airplane/.test(n)) return 'Walking & Motion';
-  if(/sit|seated|bench|ground|crouch|squat|lunge|floor|lap|lying|basket/.test(n)) return 'Sitting & Floor';
-  if(p.f>=2||/kiss|whisper|touch|hug|huddle|peek|hair|chin|glance|look down|flex|towel|hold/.test(n)) return 'Close-Up & Emotion';
+  if(p.mo===1||/\bwalk|\brun|jump|twirl|sprint|crawl|toss|first steps|dance|cheer|airplane/.test(n)) return 'Walking & Motion';
+  if(/sit|seated|bench|ground|crouch|squat|floor|lap|lying|basket/.test(n)) return 'Sitting & Floor';
+  if(p.f>=2||/kiss|whisper|touch|hug|huddle|peek|hair|chin|glance|look down|flex|towel/.test(n)) return 'Close-Up & Emotion';
   return 'Standing & Stance';
 }
 
 function defaultOrder(){return CATS.map((_,idx)=>idx);}
 function loadOrder(){
   try{
-    const saved=JSON.parse(localStorage.getItem('poselens_order')||'null');
+    const saved=jparse(ls.get('poselens_order','null'),null);
     if(Array.isArray(saved)&&saved.length===CATS.length){
       const valid=new Set(saved);
       if(valid.size===CATS.length&&saved.every(n=>Number.isInteger(n)&&n>=0&&n<CATS.length)) return saved;
@@ -226,6 +229,8 @@ function loadOrder(){
   return defaultOrder();
 }
 
+const ls={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:v}catch(_){return d}},set(k,v){try{localStorage.setItem(k,v)}catch(_){}}};
+const jparse=(v,d)=>{try{const x=JSON.parse(v);return x==null?d:x}catch(_){return d}};
 const state={
   cat:0,
   set:0,
@@ -236,8 +241,8 @@ const state={
   shootIdx:0,
   query:'',
   order:loadOrder(),
-  checked:new Set(JSON.parse(localStorage.getItem('poselens_chk')||'[]')),
-  theme:localStorage.getItem('poselens_theme')||'auto'
+  checked:new Set((x=>Array.isArray(x)?x.filter(k=>typeof k==='string'):[])(jparse(ls.get('poselens_chk','[]'),[]))),
+  theme:(t=>['auto','light','dark'].includes(t)?t:'auto')(ls.get('poselens_theme','auto'))
 };
 
 function syncThemeMeta(){
@@ -247,15 +252,26 @@ function syncThemeMeta(){
 }
 
 function saveState(){
-  localStorage.setItem('poselens_chk',JSON.stringify([...state.checked]));
-  localStorage.setItem('poselens_order',JSON.stringify(state.order));
+  ls.set('poselens_chk',JSON.stringify([...state.checked]));
+  ls.set('poselens_order',JSON.stringify(state.order));
   if(state.theme==='auto') document.documentElement.removeAttribute('data-theme');
   else document.documentElement.setAttribute('data-theme',state.theme);
-  localStorage.setItem('poselens_theme',state.theme);
+  document.documentElement.style.colorScheme=state.theme==='auto'?'':state.theme;
+  ls.set('poselens_theme',state.theme);
   syncThemeMeta();
 }
+function resolveKey(k){
+  const a=k.indexOf(':'),b=k.indexOf(':',a+1);if(a<0||b<0) return null;
+  const c=+k.slice(0,a),t=+k.slice(a+1,b),r=k.slice(b+1);
+  if(!CATS[c]||!(t>=0&&t<3)) return null;
+  const arr=LS(c,t),i=/^\d+$/.test(r)?+r:arr.findIndex(x=>x[0]===r);
+  return i>=0&&arr[i]?{c,t,i}:null;
+}
+state.checked=new Set([...state.checked].map(k=>{const r=resolveKey(k);return r?`${r.c}:${r.t}:${LS(r.c,r.t)[r.i][0]}`:null}).filter(Boolean));
 saveState();
 
+const go=h=>{try{location.replace(location.pathname+location.search+h)}catch(_){location.hash=h}};
+const deb=(f,ms)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>f(...a),ms)}};
 const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
 function attachSwipe(el, {onNext, onPrev}){
@@ -467,12 +483,22 @@ function categoryScenery(c){
   }
 }
 
+const PAL=[['#f8f4ee','#f8f4ee','#27304a','#27304a'],['#e9b8c4','#3b3f55','#4a5a7a','#2d3040'],['#111318','#111318','#c9a7ff','#222'],['#e8b04a','#2f3b52','#3b82f6','#222a38'],['#f4c2c2','#f4c2c2','#3b4a63','#2b2f3a'],['#34d399','#334155','#fbbf24','#475569'],['#1f2937','#1f2937','#1f2937','#1f2937'],['#ef4444','#111827','#2563eb','#111827'],['#f59e0b','#7c5c3a','#0ea5e9','#334155'],['#6b7a90','#1e293b','#9a3412','#1e293b'],['#14b8a6','#334155','#f472b6','#334155'],['#6366f1','#334155','#f97316','#475569'],['#ec4899','#334155','#38bdf8','#334155'],['#000','#000','#000','#000'],['#fb7185','#0ea5e9','#fde047','#06b6d4'],['#fbcfe8','#fde68a','#bfdbfe','#fde68a']];
+const SKY=[['#f6e7d0','#fff6e8','#d8c3a0'],['#f4b6c8','#ffe3ea','#b78a94'],['#cfc4ff','#efeaff','#8d84b8'],['#8fb7ff','#d6e6ff','#5b6475'],['#ffd9d4','#fff1ee','#d9a9a3'],['#9be7c4','#e7fbf1','#6bbf7d'],['#9fd6ff','#e6f5ff','#7fb36b'],['#475569','#1e293b','#0f172a'],['#ffd27a','#fff1c9','#8a6b3f'],['#1e2a3a','#3b4a5e','#0b0f16'],['#8fe3d6','#e3fbf7','#4e9b90'],['#b0b4ff','#eceeff','#7077c4'],['#ffb3d1','#ffe6f0','#a8607f'],['#ff8a2b','#ffd88a','#1a1208'],['#7dd3fc','#e0f7ff','#f1d9a0'],['#ffd6e8','#fff4fb','#f0c8dd']];
+let curCat=10;
+const GP={hug:[0,0,-75,-65,75,65,-5,-2,5,2],wk:[3,0,28,25,-28,-20,-26,-12,20,38],hd:[0,0,-20,-15,20,15,-5,-2,5,2],st:[0,0,-8,-4,8,4,-5,-2,5,2],sit:[4,6,15,40,-15,-40,80,5,85,10,124],lf:[-8,-10,-40,-60,40,60,-5,-2,5,2],jp:[-4,0,-150,-160,150,160,-20,30,20,-30,104],ar:[0,0,-150,-165,150,165,-6,-3,6,3]};
+const brighten=x=>x.replace(/(fill|stroke)-opacity="([\d.]+)"/g,(m,k,v)=>`${k}-opacity="${Math.min(1,v*2.8).toFixed(2)}"`);
+function refLinks(p){
+  const q=encodeURIComponent(`${p.name} pose ${p.C.n.replace(/&/g,'and')} photography ${['solo','couple','group'][p.t]}`);
+  return `<div class="card"><div class="crumb">FIND REAL REFERENCE PHOTOS</div><div class="ref-row"><a class="btn sec" href="https://www.google.com/search?tbm=isch&q=${q}" target="_blank" rel="noopener noreferrer">🔍 Google Images</a><a class="btn sec" href="https://www.pinterest.com/search/pins/?q=${q}" target="_blank" rel="noopener noreferrer">📌 Pinterest</a></div></div>`;
+}
 function figureSvg(poseArr,x=120,y=118,scale=1,fill='#ffffff',accent='#ffd8a8',isBaby=false){
   const p=Array.isArray(poseArr)?poseArr:D;
   const torso=cl(Number(p[0])||0,-95,95);
   const head=cl(Number(p[1])||0,-65,65);
-  const lSh=Number(p[2])||-8,lEl=Number(p[3])||-4,rSh=Number(p[4])||8,rEl=Number(p[5])||4;
-  const lHp=Number(p[6])||-5,lKn=Number(p[7])||-2,rHp=Number(p[8])||5,rKn=Number(p[9])||2;
+  const nv=(v,d)=>v==null||!Number.isFinite(Number(v))?d:Number(v);
+  const lSh=nv(p[2],-8),lEl=nv(p[3],-4),rSh=nv(p[4],8),rEl=nv(p[5],4);
+  const lHp=nv(p[6],-5),lKn=nv(p[7],-2),rHp=nv(p[8],5),rKn=nv(p[9],2);
   const rawHy=p[10]!=null&&Number.isFinite(Number(p[10]))?Number(p[10]):y;
   const hy=cl(rawHy, 52, 134);
   const rawS=p[11]!=null&&Number.isFinite(Number(p[11]))&&Number(p[11])>0?Number(p[11]):1;
@@ -517,29 +543,33 @@ function figureSvg(poseArr,x=120,y=118,scale=1,fill='#ffffff',accent='#ffd8a8',i
   const foreW=(isBaby?3.8:4.2)*s;
   const jr=(isBaby?2:2.2)*s;
 
+  const pal=PAL[curCat]||PAL[10],B=fill!=='#ffffff',sil=curCat===13;
+  const tp=sil?'#07070b':(B?pal[2]:pal[0]),bt=sil?'#07070b':(B?pal[3]:pal[1]);
+  const skin=sil?'#07070b':(B?'#c68b64':'#f1c7a3'),hair=sil?'#07070b':(B?'#2a1a12':'#5a3a22'),shoe=sil?'#07070b':'#222831';
+  const dress=!sil&&!isBaby&&tp===bt,short=curCat===7||curCat===14,bare=curCat===14;
+  const L=(x1,y1,x2,y2,w,c)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="${w}"/>`;
+  const leg=(hx,hy,kx,ky,fx,fy)=>L(hx,hy,kx,ky,limbW*1.3,dress?skin:bt)+L(kx,ky,fx,fy,foreW*1.25,(dress||short)?skin:bt)+`<ellipse cx="${fx}" cy="${fy}" rx="${jr*1.9}" ry="${jr*1.2}" fill="${bare?skin:shoe}"/>`;
+  const arm=(sx,sy,ex,ey,wx,wy)=>L(sx,sy,ex,ey,limbW*1.2,tp)+L(ex,ey,wx,wy,foreW*1.05,skin)+`<circle cx="${wx}" cy="${wy}" r="${jr*1.15}" fill="${skin}"/>`;
+  const my=(lKnY+rKnY)/2+uLeg*.45;
+  const skirt=dress?`<polygon points="${lHpX},${lHpY} ${rHpX},${rHpY} ${rKnX+8*s},${my} ${lKnX-8*s},${my}" fill="${tp}"/>`:'';
+  const ha=rad(torso+head),ux=Math.sin(ha),uy=-Math.cos(ha),vx=Math.cos(ha),vy=Math.sin(ha);
+  const fcX=hdX-ux*hdR*.2,fcY=hdY-uy*hdR*.2,gx=(noseX-hdX)*.3,gy=(noseY-hdY)*.2,er=Math.max(.8,.95*s);
+  const eye=k=>`<circle cx="${fcX+gx+k*vx*hdR*.3}" cy="${fcY+gy+k*vy*hdR*.3}" r="${er}" fill="#2b2b33"/>`;
   return `<g stroke-linecap="round" stroke-linejoin="round">
-    <line x1="${lShX}" y1="${lShY}" x2="${lElX}" y2="${lElY}" stroke="${fill}" stroke-opacity="0.72" stroke-width="${limbW}"/>
-    <line x1="${lElX}" y1="${lElY}" x2="${lWrX}" y2="${lWrY}" stroke="${fill}" stroke-opacity="0.72" stroke-width="${foreW}"/>
-    <line x1="${lHpX}" y1="${lHpY}" x2="${lKnX}" y2="${lKnY}" stroke="${fill}" stroke-opacity="0.75" stroke-width="${limbW*1.12}"/>
-    <line x1="${lKnX}" y1="${lKnY}" x2="${lFtX}" y2="${lFtY}" stroke="${fill}" stroke-opacity="0.75" stroke-width="${foreW*1.08}"/>
-    <polygon points="${lShX},${lShY} ${rShX},${rShY} ${rHpX},${rHpY} ${lHpX},${lHpY}" fill="${fill}" fill-opacity="0.92" stroke="${fill}" stroke-width="${2.8*s}"/>
-    <line x1="${rHpX}" y1="${rHpY}" x2="${rKnX}" y2="${rKnY}" stroke="${fill}" stroke-width="${limbW*1.15}"/>
-    <line x1="${rKnX}" y1="${rKnY}" x2="${rFtX}" y2="${rFtY}" stroke="${fill}" stroke-width="${foreW*1.1}"/>
-    <line x1="${rShX}" y1="${rShY}" x2="${rElX}" y2="${rElY}" stroke="${fill}" stroke-width="${limbW}"/>
-    <line x1="${rElX}" y1="${rElY}" x2="${rWrX}" y2="${rWrY}" stroke="${fill}" stroke-width="${foreW}"/>
-    <circle cx="${lWrX}" cy="${lWrY}" r="${jr}" fill="${accent}"/>
-    <circle cx="${rWrX}" cy="${rWrY}" r="${jr}" fill="${accent}"/>
-    <circle cx="${lFtX}" cy="${lFtY}" r="${jr}" fill="${fill}"/>
-    <circle cx="${rFtX}" cy="${rFtY}" r="${jr}" fill="${fill}"/>
-    <circle cx="${hdX}" cy="${hdY}" r="${hdR}" fill="${fill}"/>
-    <circle cx="${noseX}" cy="${noseY}" r="${Math.max(1.6,1.9*s)}" fill="${accent}"/>
+    ${leg(lHpX,lHpY,lKnX,lKnY,lFtX,lFtY)}${leg(rHpX,rHpY,rKnX,rKnY,rFtX,rFtY)}${skirt}
+    <polygon points="${lShX},${lShY} ${rShX},${rShY} ${rHpX},${rHpY} ${lHpX},${lHpY}" fill="${tp}" stroke="${tp}" stroke-width="${3.4*s}"/>
+    ${L(shX,shY,nkX,nkY,4.2*s,skin)}
+    ${arm(lShX,lShY,lElX,lElY,lWrX,lWrY)}${arm(rShX,rShY,rElX,rElY,rWrX,rWrY)}
+    <circle cx="${hdX}" cy="${hdY}" r="${hdR}" fill="${hair}"/>
+    <circle cx="${fcX}" cy="${fcY}" r="${hdR*.88}" fill="${skin}"/>
+    ${sil?'':eye(-1)+eye(1)}
   </g>`;
 }
 
 let svgUid=0;
 function poseSvg(p,mirror=false,detailed=false){
   const gid=`g_${p.c}_${p.t}_${p.i}_${++svgUid}`;
-  const bg1=p.C.col,bg2='#12141b';
+  curCat=p.c;const [bg1,bg2,gnd]=SKY[p.c]||SKY[10];
   let body='';
   if(p.t===0){
     const isBaby=p.c===15;
@@ -551,12 +581,17 @@ function poseSvg(p,mirror=false,detailed=false){
     body=figureSvg(p.d[5],x1,118,.90,'#ffffff','#74c0fc',false)+figureSvg(p.d[6],x2,118,b2?.82:.90,'#ffe8a3','#ff922b',b2);
   }else{
     const cnt=typeof p.d[5]==='number'?cl(p.d[5],2,6):4;
-    const span=Math.min(168,cnt*33);
+    const kind=typeof p.d[6]==='string'?p.d[6]:'st',mid=(cnt-1)/2;
+    const span=Math.min(168,cnt*(kind==='hd'?22:kind==='hug'?30:33));
     for(let k=0;k<cnt;k++){
       const px=120-span/2+(cnt>1?(k/(cnt-1))*span:0);
       const py=k%2===0?120:114;
       const col=k%2===0?'#ffffff':'#ffe8a3';
-      body+=figureSvg(mk(),px,py,.78,col,'#74c0fc',false);
+      const arr=[...(GP[kind]||D)];
+      if(kind==='hd'||kind==='hug'){arr[0]=(mid-k)*(kind==='hd'?5:3);arr[1]=(mid-k)*(kind==='hd'?4:2);}
+      if(kind==='lf') arr[0]=k%2?-4:-12;
+      if(arr[10]!=null&&k%2) arr[10]-=5;
+      body+=figureSvg(arr,px,py,.78,col,'#74c0fc',false);
     }
   }
 
@@ -566,13 +601,15 @@ function poseSvg(p,mirror=false,detailed=false){
 
   return `<svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <radialGradient id="${gid}" cx="50%" cy="35%" r="75%">
+      <linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="${bg1}"/>
         <stop offset="100%" stop-color="${bg2}"/>
-      </radialGradient>
+      </linearGradient>
     </defs>
     <rect width="240" height="180" fill="url(#${gid})"/>
-    ${categoryScenery(p.c)}
+    ${brighten(categoryScenery(p.c))}
+    <rect y="146" width="240" height="34" fill="${gnd}"/>
+    ${p.s===1?'<rect width="240" height="180" fill="#ff7a1a" fill-opacity=".16"/>':p.s===2?'<rect width="240" height="180" fill="#3b2f2a" fill-opacity=".2"/>':''}
     <g stroke="#ffffff" stroke-opacity="${detailed?0.16:0.09}" stroke-width="0.8">
       <line x1="80" y1="0" x2="80" y2="180"/><line x1="160" y1="0" x2="160" y2="180"/>
       <line x1="0" y1="60" x2="240" y2="60"/><line x1="0" y1="120" x2="240" y2="120"/>
@@ -581,12 +618,13 @@ function poseSvg(p,mirror=false,detailed=false){
     <g ${mirror?'transform="translate(240,0) scale(-1,1)"':''}>
       ${body}
     </g>
+    <rect x="${rx}" y="${ry}" width="${rw}" height="${rh}" rx="8" fill="none" stroke="#00000055" stroke-width="2.4" stroke-dasharray="5 4"/>
     <rect x="${rx}" y="${ry}" width="${rw}" height="${rh}" rx="8" fill="none" stroke="#ffffff" stroke-opacity="${detailed?0.55:0.28}" stroke-width="1.2" stroke-dasharray="5 4"/>
     ${detailed?`
       <g font-family="-apple-system,system-ui,sans-serif" font-size="9.5" font-weight="700">
         <rect x="8" y="8" width="88" height="18" rx="6" fill="#00000066"/>
         <text x="14" y="20" fill="#fff">📐 ${esc(FR[p.f])}</text>
-        <rect x="8" y="154" width="132" height="18" rx="6" fill="#00000066"/>
+        <rect x="8" y="154" width="${Math.round(Math.max(88,camShort.length*5.7+34))}" height="18" rx="6" fill="#00000066"/>
         <text x="14" y="166" fill="#ffd43b">🎥 ${esc(camShort)}</text>
       </g>
     `:''}
@@ -631,7 +669,7 @@ function allPoses(){
   return list;
 }
 
-const poseKey=p=>`${p.c}:${p.t}:${p.i}`;
+const poseKey=p=>`${p.c}:${p.t}:${p.name}`;
 const isCustomOrder=()=>state.order.some((v,idx)=>v!==idx);
 
 function moveCategory(pos,delta){
@@ -673,7 +711,7 @@ function renderHome(){
     <button class="gfab" id="themeBtn">Theme: ${state.theme}</button>
     <h1>PoseLens</h1>
     <p class="sub">Offline on-set director, prompts &amp; camera recipes</p>
-    <input class="sb" id="homeSearch" type="search" placeholder="Search poses, prompts, or focal lengths..." value="${esc(state.query)}">
+    <input class="sb" id="homeSearch" aria-label="Search poses" type="search" placeholder="Search poses, prompts, or focal lengths..." value="${esc(state.query)}">
     <div class="card">
       <div class="crumb">ACTIVE LIGHTING PRESET</div>
       <p><b>${s.e} ${esc(s.n)}</b> — <small>${esc(s.d)}</small></p>
@@ -744,12 +782,7 @@ function renderHome(){
   const inp=document.getElementById('homeSearch');
   inp.oninput=e=>{
     state.query=e.target.value;
-    if(state.query.trim()){
-      location.hash='#poses';
-      renderPoses();
-      const el=document.getElementById('poseSearch');
-      if(el){el.focus();el.setSelectionRange(el.value.length,el.value.length);}
-    }
+    if(state.query.trim()){state.focusSearch=true;location.hash='#poses';}
   };
 }
 
@@ -768,6 +801,7 @@ function renderPoses(){
     : rawList;
 
   const filtered=state.sub==='All'||q ? baseList : baseList.filter(p=>getSubgroup(p)===state.sub);
+  const shown=q?filtered.slice(0,60):filtered;
 
   app.innerHTML=`
     <div class="head-row">
@@ -776,24 +810,24 @@ function renderPoses(){
     </div>
     <h2>${catObj.e} ${esc(catObj.n)}</h2>
     <p class="sub">${esc(catObj.n2)}</p>
-    <input class="sb" id="poseSearch" type="search" placeholder="Filter poses, prompts, or subgroups..." value="${esc(state.query)}">
+    <input class="sb" id="poseSearch" aria-label="Filter poses" type="search" placeholder="Filter poses, prompts, or subgroups..." value="${esc(state.query)}">
     <div class="pill-row">
       ${state.order.map(idx=>{
         const item=CATS[idx];
-        return `<button class="pill ${idx===c&&!q?'on':''}" data-cat="${idx}">${item.e} ${esc(item.n)}</button>`;
+        return `<button class="pill ${idx===c&&!q?'on':''}" aria-pressed="${idx===c&&!q}" data-cat="${idx}">${item.e} ${esc(item.n)}</button>`;
       }).join('')}
     </div>
     <div class="pill-row">
-      ${labels.map((lb,idx)=>`<button class="pill ${idx===t&&!q?'on':''}" data-type="${idx}">${esc(lb)}</button>`).join('')}
+      ${labels.map((lb,idx)=>`<button class="pill ${idx===t&&!q?'on':''}" aria-pressed="${idx===t&&!q}" data-type="${idx}">${esc(lb)}</button>`).join('')}
     </div>
     ${!q&&subgroups.length>2?`
       <div class="pill-row">
-        ${subgroups.map(sg=>`<button class="pill ${sg===state.sub?'sub-on':''}" data-sub="${esc(sg)}">${esc(sg)}</button>`).join('')}
+        ${subgroups.map(sg=>`<button class="pill ${sg===state.sub?'sub-on':''}" aria-pressed="${sg===state.sub}" data-sub="${esc(sg)}">${esc(sg)}</button>`).join('')}
       </div>
     `:''}
     ${catObj.x?`<div class="card"><div class="crumb">SHOOT NOTE</div><p>${esc(catObj.x)}</p></div>`:''}
     <div class="grid">
-      ${filtered.map(p=>`
+      ${shown.map(p=>`
         <a class="pc" href="#detail?c=${p.c}&t=${p.t}&i=${p.i}">
           <span class="th">${poseSvg(p,false,false)}</span>
           <div class="t">
@@ -804,6 +838,7 @@ function renderPoses(){
         </a>
       `).join('') || `<div class="card"><p>No matching poses found.</p></div>`}
     </div>
+    ${filtered.length>shown.length?`<p class="sub">Showing first ${shown.length} of ${filtered.length} matches — refine your search.</p>`:''}
   `;
 
   document.getElementById('shuffleBtn').onclick=()=>{
@@ -813,12 +848,9 @@ function renderPoses(){
     state.swipeDir='next';
     location.hash=`#detail?c=${pick.c}&t=${pick.t}&i=${pick.i}`;
   };
-  document.getElementById('poseSearch').oninput=e=>{
-    state.query=e.target.value;
-    renderPoses();
-    const el=document.getElementById('poseSearch');
-    if(el){el.focus();el.setSelectionRange(el.value.length,el.value.length);}
-  };
+  const psEl=document.getElementById('poseSearch');
+  psEl.oninput=deb(()=>{state.query=psEl.value;state.focusSearch=true;renderPoses();},140);
+  if(state.focusSearch){state.focusSearch=false;psEl.focus();psEl.setSelectionRange(psEl.value.length,psEl.value.length);}
   app.querySelectorAll('[data-cat]').forEach(btn=>{
     btn.onclick=()=>{state.cat=Number(btn.dataset.cat);state.type=0;state.sub='All';state.query='';renderPoses();};
   });
@@ -845,14 +877,15 @@ function renderDetail(params){
   const nextIdx=(i+1)%arr.length;
   const animClass=state.swipeDir==='next'?'anim-next':state.swipeDir==='prev'?'anim-prev':'';
   state.swipeDir=null;
+  const ecv=p.C.k==='si'?'−1 to −2 EV (meter on the bright sky)':p.C.k==='bc'?'+0.7 to +1 EV (bright sand and water)':p.S.ec;
 
   const goNext=()=>{
     state.swipeDir='next';
-    location.hash=`#detail?c=${c}&t=${t}&i=${nextIdx}`;
+    go(`#detail?c=${c}&t=${t}&i=${nextIdx}`);
   };
   const goPrev=()=>{
     state.swipeDir='prev';
-    location.hash=`#detail?c=${c}&t=${t}&i=${prevIdx}`;
+    go(`#detail?c=${c}&t=${t}&i=${prevIdx}`);
   };
 
   app.innerHTML=`
@@ -886,15 +919,18 @@ function renderDetail(params){
         <div class="st"><small>Shutter Speed</small><b>1/${p.sh} s</b></div>
         <div class="st"><small>Base ISO</small><b>${p.iso}</b></div>
       </div>
+      <p class="sub" style="font-size:12px;margin:-4px 2px 8px">Suggested starting exposure — adjust to your meter and light.</p>
+      ${p.C.x?`<div class="card"><div class="crumb">SHOOT NOTE</div><p>${esc(p.C.x)}</p></div>`:''}
       <div class="card">
         <dl>
           <dt>Camera Position</dt><dd>${esc(p.cam)}</dd>
           <dt>Body Mechanics</dt><dd>${esc(p.tip)}</dd>
           <dt>Pro Tip</dt><dd>${esc(p.C.p)}</dd>
-          <dt>Lighting Preset (${esc(p.S.n)})</dt><dd>WB ${esc(p.S.wb)} · Comp ${esc(p.S.ec)} · ${esc(p.S.mt)}</dd>
+          <dt>Lighting Preset (${esc(p.S.n)})</dt><dd>WB ${esc(p.S.wb)} · Comp ${esc(ecv)} · ${esc(p.S.mt)}</dd>
         </dl>
       </div>
     </div>
+    ${refLinks(p)}
     <button class="btn" id="chkBtn">${isChk?'✓ Saved in Shoot Run-Sheet':'+ Save to Shoot Run-Sheet'}</button>
     <div class="nav">
       <button id="prevPoseBtn">← Previous</button>
@@ -909,7 +945,7 @@ function renderDetail(params){
   document.getElementById('rndPoseBtn').onclick=()=>{
     const r=Math.floor(Math.random()*arr.length);
     state.swipeDir='next';
-    location.hash=`#detail?c=${c}&t=${t}&i=${r===i?(i+1)%arr.length:r}`;
+    go(`#detail?c=${c}&t=${t}&i=${r===i?(i+1)%arr.length:r}`);
   };
   document.getElementById('mirrorBtn').onclick=()=>{
     state.mirror=!state.mirror;
@@ -948,9 +984,8 @@ function renderLight(){
 
 function getSavedItems(){
   return [...state.checked].map(k=>{
-    const [c,t,i]=k.split(':').map(Number);
-    if(CATS[c]&&LS(c,t)[i]) return {p:gen(c,state.set,t,i),key:k};
-    return null;
+    const r=resolveKey(k);
+    return r?{p:gen(r.c,state.set,r.t,r.i),key:k}:null;
   }).filter(Boolean);
 }
 
@@ -1000,6 +1035,7 @@ function renderShootMode(){
         <p><b>Cue:</b> ${esc(p.tip)}</p>
       </div>
     </div>
+    ${refLinks(p)}
     <div class="nav">
       <button id="prevShot">← Prev Shot</button>
       <button id="doneShot">✓ Done &amp; Next</button>
@@ -1064,6 +1100,7 @@ function render(){
   app.classList.remove('in');
   void app.offsetWidth;
   app.classList.add('in');
+  if(route==='poses'&&params.has('c')) state.query='';
   if(params.has('c')){
     const nextCat=cl(Number(params.get('c')),0,CATS.length-1);
     if(nextCat!==state.cat) state.sub='All';
@@ -1084,14 +1121,15 @@ function render(){
 }
 
 window.addEventListener('keydown', e=>{
+  if(e.target&&e.target.closest&&e.target.closest('input,textarea')||e.altKey||e.ctrlKey||e.metaKey) return;
   const {route,params}=parseHash();
   if(route==='detail'){
     const c=cl(Number(params.get('c')??state.cat),0,CATS.length-1);
     const t=cl(Number(params.get('t')??state.type),0,2);
     const arr=LS(c,t);
     const i=cl(Number(params.get('i')||0),0,Math.max(0,arr.length-1));
-    if(e.key==='ArrowRight'){state.swipeDir='next';location.hash=`#detail?c=${c}&t=${t}&i=${(i+1)%arr.length}`;}
-    if(e.key==='ArrowLeft'){state.swipeDir='prev';location.hash=`#detail?c=${c}&t=${t}&i=${(i-1+arr.length)%arr.length}`;}
+    if(e.key==='ArrowRight'){state.swipeDir='next';go(`#detail?c=${c}&t=${t}&i=${(i+1)%arr.length}`);}
+    if(e.key==='ArrowLeft'){state.swipeDir='prev';go(`#detail?c=${c}&t=${t}&i=${(i-1+arr.length)%arr.length}`);}
   } else if(route==='shoot'){
     const items=getSavedItems();
     if(!items.length) return;
@@ -1107,7 +1145,7 @@ render();
 
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('./sw.js').catch(()=>{});
+    navigator.serviceWorker.register('./sw.js').catch(e=>console.error('SW registration failed',e));
   });
 }
 </script>
