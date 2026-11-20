@@ -29,7 +29,7 @@ html{background:var(--bg);scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 -apple-system,system-ui,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-#app{max-width:640px;margin:0 auto;padding:18px 14px 110px}
+#app{max-width:640px;margin:0 auto;padding:56px 14px 110px}
 #app.in{animation:fi .28s cubic-bezier(.2,.8,.2,1)}
 @keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes slideInNext{from{opacity:.25;transform:translateX(36px) scale(.98)}to{opacity:1;transform:none}}
@@ -92,10 +92,11 @@ dl{margin:0}dt{color:var(--mu);font-size:12px;text-transform:uppercase;letter-sp
 #tb{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(100%,640px);display:flex;justify-content:space-around;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));background:var(--gl);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--bd);z-index:5}
 #tb a{display:flex;flex-direction:column;align-items:center;font-size:11px;color:var(--mu);gap:2px;padding:4px 18px;font-weight:600}
 #tb a b{font-size:20px}#tb a.on{color:var(--ac)}
-.ref-row{display:flex;gap:8px;margin-top:6px}.ref-row a{flex:1;margin:0;padding:12px 6px;font-size:14px;text-align:center}
+.gs{right:12px}#themeBtn{right:112px}
+.ref-row{display:flex;gap:8px;margin-top:6px}.ref-row>*{flex:1;margin:0;padding:12px 6px;font-size:14px;text-align:center}.ref-row a{flex:1;margin:0;padding:12px 6px;font-size:14px;text-align:center}
 .gfab{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:12px;z-index:6;background:var(--gl);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--bd);border-radius:20px;padding:7px 13px;font-size:13px;font-weight:700;color:var(--ac);cursor:pointer}
 :focus-visible{outline:2px solid var(--ac);outline-offset:2px}.sb:focus-visible{border-color:var(--ac);outline:2px solid var(--ac)}
-</style></head><body><div id="app"></div><nav id="tb"></nav>
+</style></head><body><a id="gSearch" class="gfab gs" href="https://www.google.com/search?tbm=isch&q=photography+pose+ideas" target="_blank" rel="noopener noreferrer" aria-label="Search Google Images">🔍 Google</a><div id="app"></div><nav id="tb"></nav>
 <script>
 const STOPS=[1.4,1.8,2,2.8,3.5,4,5.6,8],SH=[60,125,200,320,500,800,1250,2000];
 const SET=[
@@ -270,6 +271,60 @@ function resolveKey(k){
 state.checked=new Set([...state.checked].map(k=>{const r=resolveKey(k);return r?`${r.c}:${r.t}:${LS(r.c,r.t)[r.i][0]}`:null}).filter(Boolean));
 saveState();
 
+CATS.forEach((_,c)=>{try{localStorage.removeItem('poselens_bg_'+c)}catch(_){}});
+const SC=[
+{k:'garden',sky:['#cfe4f7','#f6ecd9'],tr:['#7a9a5c','#5f8247','#9fb87a'],gr:['#a7bd78','#6f8f4a'],bk:'#fff3c9',sun:[196,30,16]},
+{k:'garden',sky:['#f7c9a8','#fde8d0'],tr:['#8c9a55','#6e7f3e','#b5a65a'],gr:['#b8a965','#7f8442'],bk:'#ffd9a0',sun:[200,48,24]},
+{k:'studio',sky:['#d9d6e2','#f3f1f7'],gr:['#c4bfd2','#8f89a3']},
+{k:'city',sky:['#9fc2e8','#e4eef8'],gr:['#7a7f88','#4b4f57'],bk:'#ffe9b0'},
+{k:'home',sky:['#f3e2d6','#fff4ea'],gr:['#cfae8e','#a98764'],bk:'#fff0d0'},
+{k:'garden',sky:['#9fd4f5','#e8f6ff'],tr:['#5fa356','#4a8f48','#86bf6a'],gr:['#86c46f','#5aa04e'],bk:'#fff6b0',sun:[196,30,16]},
+{k:'campus',sky:['#8fc7f2','#e6f3ff'],gr:['#86b866','#5f9448'],bk:'#fff',sun:[40,32,14]},
+{k:'gym',sky:['#2a303b','#151922'],gr:['#3a3f49','#15181f'],bk:'#7aa2ff'},
+{k:'mount',sky:['#8fc1ee','#f6e6c8'],gr:['#a08a64','#6e5b3d'],bk:'#fff',sun:[196,34,16]},
+{k:'night',sky:['#0f1e2e','#27404f'],gr:['#1d232b','#0b0e12'],bk:'#ff9a3c',bk2:'#3cc6c0'},
+{k:'garden',sky:['#bfe3d8','#eaf7f1'],tr:['#4f8a6a','#3e7457','#7bb08d'],gr:['#78aa88','#4c7f5c'],bk:'#fff'},
+{k:'garden',sky:['#b6c6f5','#eef0ff'],tr:['#5d9a62','#4a8450','#82b87a'],gr:['#8dbc74','#5f9150'],bk:'#fff2b8'},
+{k:'garden',sky:['#ff9fb8','#ffd9a8'],tr:['#4a3f56','#5a4a5f','#6b5468'],gr:['#7a5f70','#473a4d'],bk:'#ffd0a0',sun:[60,86,26]},
+{k:'sunset',sky:['#ff7a1f','#ffd27a'],gr:['#1a1008','#0b0704'],bk:'#ffcf80',sun:[120,96,40]},
+{k:'beach',sky:['#6fc4f2','#e5f6ff'],sea:['#2aa6c9','#7fd3e6'],gr:['#f3e0b0','#d6bb7e'],bk:'#fff',sun:[196,32,18]},
+{k:'home',sky:['#fde7ef','#fff8fb'],gr:['#f3dfc8','#dcc2a0'],bk:'#fff'}];
+function rng(a){return()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function bgLayer(p,gid,gnd){
+  const c=p.c,S=SC[c]||SC[0],R=rng(c*97+13),rnd=(a,b)=>a+R()*(b-a);
+  const H=S.k==='studio'||S.k==='home'?128:S.k==='gym'?124:118;
+  let far='';
+  switch(S.k){
+    case 'garden':for(let i=0;i<11;i++){const r=rnd(16,30);far+=`<ellipse cx="${i*24-6+rnd(-6,6)}" cy="${H-r*.45}" rx="${r*1.1}" ry="${r}" fill="${S.tr[i%3]}"/>`}break;
+    case 'city':for(let i=0;i<9;i++){const w=rnd(18,32),h=rnd(40,95),x=i*28-8;far+=`<rect x="${x}" y="${H-h}" width="${w}" height="${h}" fill="${i%2?'#8e9bb0':'#a9b4c6'}"/>`;for(let j=0;j<6;j++)far+=`<rect x="${x+4+(j%2)*10}" y="${H-h+8+Math.floor(j/2)*14}" width="5" height="7" fill="#ffe9a8" fill-opacity=".6"/>`}break;
+    case 'beach':far=`<rect y="${H-28}" width="240" height="28" fill="${S.sea[0]}"/><rect y="${H-28}" width="240" height="10" fill="${S.sea[1]}"/>`;break;
+    case 'mount':far=`<polygon points="-10,${H} 50,${H-62} 110,${H}" fill="#6b86a8"/><polygon points="70,${H} 140,${H-84} 220,${H}" fill="#7c95b4"/><polygon points="150,${H} 205,${H-50} 260,${H}" fill="#8fa4be"/>`;break;
+    case 'sunset':far=`<path d="M-10 ${H} Q40 ${H-30} 90 ${H-6} T250 ${H-12} V${H+4} H-10Z" fill="#2a160c"/>`;break;
+    case 'campus':far=`<rect x="30" y="${H-58}" width="180" height="58" fill="#d9c9a8"/>`+[0,1,2,3,4,5].map(i=>`<rect x="${40+i*28}" y="${H-52}" width="8" height="52" fill="#efe4cc"/>`).join('')+`<polygon points="24,${H-58} 120,${H-84} 216,${H-58}" fill="#c4b18c"/>`;break;
+    case 'gym':for(let i=0;i<5;i++)far+=`<rect x="${i*48+6}" y="14" width="34" height="5" rx="2.5" fill="#fff" fill-opacity=".8"/>`;far+=`<rect x="14" y="${H-62}" width="212" height="46" fill="#1b212c"/>`;break;
+    case 'night':for(let i=0;i<8;i++){const w=rnd(18,30),h=rnd(34,80);far+=`<rect x="${i*32-6}" y="${H-h}" width="${w}" height="${h}" fill="#142533"/>`}break;
+    case 'studio':far=`<ellipse cx="120" cy="70" rx="120" ry="80" fill="#fff" fill-opacity=".5"/>`;break;
+    case 'home':far=`<rect x="150" y="26" width="64" height="70" rx="3" fill="#fffaf0"/><rect x="150" y="26" width="64" height="70" rx="3" fill="none" stroke="#e8dcc8" stroke-width="2"/><ellipse cx="182" cy="62" rx="70" ry="60" fill="#fff6d8" fill-opacity=".5"/>`;break;
+  }
+  const nb=S.k==='studio'?0:9;let bk='';
+  for(let i=0;i<nb;i++)bk+=`<circle cx="${rnd(0,240).toFixed(0)}" cy="${rnd(10,H).toFixed(0)}" r="${rnd(4,11).toFixed(1)}" fill="${S.bk2&&i%2?S.bk2:(S.bk||'#fff')}" fill-opacity="${rnd(.12,.3).toFixed(2)}"/>`;
+  const sun=S.sun?`<circle cx="${S.sun[0]}" cy="${S.sun[1]}" r="${S.sun[2]*1.6}" fill="#fff6c8" fill-opacity=".35"/><circle cx="${S.sun[0]}" cy="${S.sun[1]}" r="${S.sun[2]}" fill="#fff6c8" fill-opacity=".75"/>`:'';
+  const tint=p.s===1?'<rect width="240" height="180" fill="#ff7a1a" fill-opacity=".16"/>':p.s===2?'<rect width="240" height="180" fill="#3b2f2a" fill-opacity=".2"/>':'';
+  return `<defs>
+    <linearGradient id="${gid}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${S.sky[0]}"/><stop offset="1" stop-color="${S.sky[1]}"/></linearGradient>
+    <linearGradient id="${gid}f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${S.gr[0]}"/><stop offset="1" stop-color="${S.gr[1]}"/></linearGradient>
+    <radialGradient id="${gid}v" cx="50%" cy="48%" r="75%"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></radialGradient>
+    <filter id="${gid}b" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="2.4"/></filter>
+    <filter id="${gid}k" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="3.4"/></filter>
+    <filter id="${gid}n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="${c+1}"/><feColorMatrix values="0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .8 0"/></filter>
+  </defs>
+  <rect width="240" height="180" fill="url(#${gid}s)"/>${sun}
+  <g filter="url(#${gid}b)">${far}</g>
+  <rect y="${H}" width="240" height="${180-H}" fill="url(#${gid}f)"/>
+  <rect y="${H-9}" width="240" height="18" fill="${S.sky[1]}" fill-opacity=".38" filter="url(#${gid}b)"/>
+  <g filter="url(#${gid}k)">${bk}</g>
+  ${tint}<rect width="240" height="180" fill="url(#${gid}v)"/><rect width="240" height="180" filter="url(#${gid}n)" opacity=".16"/>`;
+}
 const go=h=>{try{location.replace(location.pathname+location.search+h)}catch(_){location.hash=h}};
 const deb=(f,ms)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>f(...a),ms)}};
 const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -488,8 +543,23 @@ const SKY=[['#f6e7d0','#fff6e8','#d8c3a0'],['#f4b6c8','#ffe3ea','#b78a94'],['#cf
 let curCat=10;
 const GP={hug:[0,0,-75,-65,75,65,-5,-2,5,2],wk:[3,0,28,25,-28,-20,-26,-12,20,38],hd:[0,0,-20,-15,20,15,-5,-2,5,2],st:[0,0,-8,-4,8,4,-5,-2,5,2],sit:[4,6,15,40,-15,-40,80,5,85,10,124],lf:[-8,-10,-40,-60,40,60,-5,-2,5,2],jp:[-4,0,-150,-160,150,160,-20,30,20,-30,104],ar:[0,0,-150,-165,150,165,-6,-3,6,3]};
 const brighten=x=>x.replace(/(fill|stroke)-opacity="([\d.]+)"/g,(m,k,v)=>`${k}-opacity="${Math.min(1,v*2.8).toFixed(2)}"`);
+const refQuery=p=>`${p.name} pose ${p.C.n.replace(/&/g,'and')} photography ${['solo','couple','group'][p.t]}`;
+function gQuery(){
+  const {route,params}=parseHash();
+  try{
+    if(route==='detail'){
+      const c=cl(Number(params.get('c')??state.cat),0,CATS.length-1),t=cl(Number(params.get('t')??state.type),0,2);
+      const arr=LS(c,t),i=cl(Number(params.get('i')||0),0,Math.max(0,arr.length-1));
+      return refQuery(gen(c,state.set,t,i));
+    }
+    if(route==='shoot'){const it=getSavedItems();if(it.length) return refQuery(it[cl(state.shootIdx,0,it.length-1)].p);}
+    if(route==='poses'){const q=state.query.trim();return q?`${q} pose photography`:`${CATS[state.cat].n.replace(/&/g,'and')} photography poses`;}
+  }catch(_){}
+  return 'photography pose ideas';
+}
+function updateG(){const a=document.getElementById('gSearch');if(a) a.href='https://www.google.com/search?tbm=isch&q='+encodeURIComponent(gQuery());}
 function refLinks(p){
-  const q=encodeURIComponent(`${p.name} pose ${p.C.n.replace(/&/g,'and')} photography ${['solo','couple','group'][p.t]}`);
+  const q=encodeURIComponent(refQuery(p));
   return `<div class="card"><div class="crumb">FIND REAL REFERENCE PHOTOS</div><div class="ref-row"><a class="btn sec" href="https://www.google.com/search?tbm=isch&q=${q}" target="_blank" rel="noopener noreferrer">🔍 Google Images</a><a class="btn sec" href="https://www.pinterest.com/search/pins/?q=${q}" target="_blank" rel="noopener noreferrer">📌 Pinterest</a></div></div>`;
 }
 function figureSvg(poseArr,x=120,y=118,scale=1,fill='#ffffff',accent='#ffd8a8',isBaby=false){
@@ -606,10 +676,7 @@ function poseSvg(p,mirror=false,detailed=false){
         <stop offset="100%" stop-color="${bg2}"/>
       </linearGradient>
     </defs>
-    <rect width="240" height="180" fill="url(#${gid})"/>
-    ${brighten(categoryScenery(p.c))}
-    <rect y="146" width="240" height="34" fill="${gnd}"/>
-    ${p.s===1?'<rect width="240" height="180" fill="#ff7a1a" fill-opacity=".16"/>':p.s===2?'<rect width="240" height="180" fill="#3b2f2a" fill-opacity=".2"/>':''}
+    ${bgLayer(p,gid,gnd)}
     <g stroke="#ffffff" stroke-opacity="${detailed?0.16:0.09}" stroke-width="0.8">
       <line x1="80" y1="0" x2="80" y2="180"/><line x1="160" y1="0" x2="160" y2="180"/>
       <line x1="0" y1="60" x2="240" y2="60"/><line x1="0" y1="120" x2="240" y2="120"/>
@@ -620,14 +687,6 @@ function poseSvg(p,mirror=false,detailed=false){
     </g>
     <rect x="${rx}" y="${ry}" width="${rw}" height="${rh}" rx="8" fill="none" stroke="#00000055" stroke-width="2.4" stroke-dasharray="5 4"/>
     <rect x="${rx}" y="${ry}" width="${rw}" height="${rh}" rx="8" fill="none" stroke="#ffffff" stroke-opacity="${detailed?0.55:0.28}" stroke-width="1.2" stroke-dasharray="5 4"/>
-    ${detailed?`
-      <g font-family="-apple-system,system-ui,sans-serif" font-size="9.5" font-weight="700">
-        <rect x="8" y="8" width="88" height="18" rx="6" fill="#00000066"/>
-        <text x="14" y="20" fill="#fff">📐 ${esc(FR[p.f])}</text>
-        <rect x="8" y="154" width="${Math.round(Math.max(88,camShort.length*5.7+34))}" height="18" rx="6" fill="#00000066"/>
-        <text x="14" y="166" fill="#ffd43b">🎥 ${esc(camShort)}</text>
-      </g>
-    `:''}
   </svg>`;
 }
 
@@ -700,6 +759,7 @@ function renderNav(active){
     ['#light','💡','Lighting'],
     ['#check','✅','Checklist']
   ];
+  updateG();
   tb.innerHTML=items.map(([h,ic,lb])=>`<a href="${h}" class="${active===h?'on':''}"><b>${ic}</b><span>${lb}</span></a>`).join('');
 }
 
@@ -923,6 +983,7 @@ function renderDetail(params){
       ${p.C.x?`<div class="card"><div class="crumb">SHOOT NOTE</div><p>${esc(p.C.x)}</p></div>`:''}
       <div class="card">
         <dl>
+          <dt>Framing</dt><dd>${esc(FR[p.f])}</dd>
           <dt>Camera Position</dt><dd>${esc(p.cam)}</dd>
           <dt>Body Mechanics</dt><dd>${esc(p.tip)}</dd>
           <dt>Pro Tip</dt><dd>${esc(p.C.p)}</dd>
@@ -1031,6 +1092,7 @@ function renderShootMode(){
         <q>${esc(getDirectorPrompt(p))}</q>
       </div>
       <div class="card">
+        <p><b>Framing:</b> ${esc(FR[p.f])}</p>
         <p><b>Camera:</b> ${esc(p.cam)}</p>
         <p><b>Cue:</b> ${esc(p.tip)}</p>
       </div>
